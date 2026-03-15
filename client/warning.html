@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Фишинговый сайт заблокирован</title>
+  <style>
+    :root {
+      --bg: #120f0f;
+      --panel: #1b1515;
+      --panel-alt: #241c1c;
+      --text: #f8efea;
+      --muted: #d2b8ae;
+      --danger: #ff8f7a;
+      --danger-strong: #ff6a4f;
+      --border: #ff8f7a;
+      --grid: rgba(255, 143, 122, 0.14);
+      --shadow: 8px 8px 0 0 rgba(0, 0, 0, 0.35);
+      --font-main: "IBM Plex Mono", "Cascadia Code", "SFMono-Regular", "Consolas", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-main);
+      padding: 28px 20px;
+      margin: 0;
+      background:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+        var(--bg);
+      background-size: 20px 20px, 20px 20px, auto;
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .warning-card {
+      background-color: var(--panel);
+      padding: 30px;
+      max-width: 720px;
+      width: 100%;
+      text-align: left;
+      border: 2px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    h1 {
+      color: var(--danger);
+      margin-top: 0;
+      font-size: 34px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    h1::before {
+      content: "[!]";
+      font-size: 24px;
+    }
+
+    .description {
+      margin: 0 0 18px;
+      color: var(--muted);
+    }
+
+    .url-container {
+      background-color: var(--panel-alt);
+      padding: 15px;
+      margin: 20px 0;
+      word-break: break-all;
+      font-size: 14px;
+      border: 2px solid var(--border);
+    }
+
+    .url-label {
+      display: block;
+      font-weight: bold;
+      color: var(--muted);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 12px;
+    }
+
+    .reasons-section h3 {
+      color: var(--text);
+      margin-top: 25px;
+      margin-bottom: 15px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .reasons-section h3::before {
+      content: ">>";
+      color: var(--danger);
+    }
+
+    .reasons-list {
+      list-style-type: none;
+      padding: 15px;
+      text-align: left;
+      max-height: 220px;
+      overflow-y: auto;
+      margin: 0 auto;
+      background-color: var(--panel-alt);
+      border: 2px solid var(--border);
+    }
+
+    .reasons-list li {
+      padding: 10px;
+      margin: 8px 0;
+      background-color: var(--panel);
+      border: 1px solid var(--border);
+    }
+
+    .reasons-list li::before {
+      content: "> ";
+      color: var(--danger);
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    .footer-note {
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .close-btn {
+      padding: 14px 22px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--bg);
+      background-color: var(--danger);
+      border: 2px solid var(--border);
+      border-radius: 0;
+      cursor: pointer;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      font-family: inherit;
+      text-transform: uppercase;
+    }
+
+    .close-btn:hover {
+      background-color: var(--danger-strong);
+    }
+
+    .close-btn:active {
+      transform: none;
+    }
+
+    .close-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .icon {
+      font-size: 1em;
+      vertical-align: middle;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 16px;
+      }
+
+      .warning-card {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      .actions {
+        align-items: stretch;
+      }
+
+      .close-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="warning-card">
+    <p class="eyebrow">TrustScreen / Access Interrupted</p>
+    <h1>Обнаружен фишинговый сайт</h1>
+    <p class="description">Подозрительный ресурс заблокирован до подтверждения действия. Проверьте адрес и переходите только если полностью доверяете источнику.</p>
+    <div class="url-container">
+      <span class="url-label">URL:</span>
+      <span id="url"></span>
+    </div>
+    <div class="reasons-section">
+      <h3>Причина блокировки</h3>
+      <ul id="reasons-list" class="reasons-list">
+      </ul>
+    </div>
+    <div class="actions">
+      <div class="footer-note">
+        Автоматическая блокировка для защиты ваших данных
+      </div>
+      <button id="proceed-btn" class="close-btn">
+        <span class="icon"></span> Перейти на сайт
+      </button>
+    </div>
+  </div>
+  <script src="warning.js"></script>
+</body>
+</html>
